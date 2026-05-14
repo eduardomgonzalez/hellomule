@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<configuration-properties doc:name="Configuration properties" doc:id="1d16eb4a-0844-4a1a-b0c9-3d79a08b7a85" file="config.yaml" />
+	
+	<flow name="hellomuleFlow" doc:id="4c390e8d-c33f-43ce-9ddd-6d5219222c10" >
+		<http:listener doc:name="Listener" doc:id="62bbeb30-dd62-4f80-92fe-3b249805a36e" config-ref="HTTP_Listener_config" path="/hellomule"/>
+		<set-payload value="Hello Mule" doc:name="Set Payload" doc:id="4003bafd-fbc0-429b-8dff-44efa4927ffd" />
+		<ee:transform doc:name="Build hello response" doc:id="e1978d8c-9988-45ea-86f4-68e6cfb10010" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	app: p("app.name"),
+	status: "ok",
+	message: p("app.message"),
+	source: p("app.source")
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="healthFlow" doc:id="b57426d5-0164-4964-a8f9-b4f93470f102" >
+		<http:listener doc:name="Health listener" doc:id="fcda7550-d81f-4832-a8dc-7ed81460996e" config-ref="HTTP_Listener_config" path="/health"/>
+		<ee:transform doc:name="Build health response" doc:id="41f510d6-8c3f-48ef-af5e-e472e8ccf21c" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	app: p("app.name"),
+	status: "UP",
+	runtime: p("app.runtime"),
+	source: p("app.source")
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>

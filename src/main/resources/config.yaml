@@ -1,0 +1,7 @@
+app:
+  name: "hellomule"
+  message: "Hello Mule"
+  source: "local"
+  runtime: "4.10.0"
+http:
+  port: "8081"
