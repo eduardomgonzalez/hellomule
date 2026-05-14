@@ -10,6 +10,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 	<flow name="hellomuleFlow" doc:id="4c390e8d-c33f-43ce-9ddd-6d5219222c10" >
 		<http:listener doc:name="Listener" doc:id="62bbeb30-dd62-4f80-92fe-3b249805a36e" config-ref="HTTP_Listener_config" path="/hellomule"/>
 		<set-payload value="Hello Mule" doc:name="Set Payload" doc:id="4003bafd-fbc0-429b-8dff-44efa4927ffd" />
+		<logger level="INFO" doc:name="Logger" doc:id="b38a2ce4-f784-4291-a493-7ae8ea54207e" message='#[output application/java&#10;---&#10;"Username: " ++ Mule::p("secure::example.username")&#10;++ " - " ++ &#10;"Password: " ++ Mule::p("secure::example.password")]'/>
 		<ee:transform doc:name="Build hello response" doc:id="e1978d8c-9988-45ea-86f4-68e6cfb10010" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
