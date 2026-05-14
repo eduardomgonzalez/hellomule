@@ -50,6 +50,37 @@ http.listener.host
 http.listener.port
 ```
 
+Tambien incluye configuracion de Secure Properties para leer valores cifrados desde archivos por ambiente:
+
+```text
+${env}.secure.properties
+```
+
+La clave de descifrado se recibe por property externa:
+
+```text
+secure.key
+```
+
+## API Manager
+
+La aplicacion esta preparada para registrarse en API Manager mediante API Autodiscovery.
+
+El `api.id` identifica la API Instance creada en API Manager y se usa en `global.xml` para vincular el flow principal:
+
+```text
+api.id
+```
+
+En CloudHub tambien se configuran las credenciales del environment para que Mule pueda conectarse con Anypoint Platform:
+
+```text
+anypoint.platform.client_id
+anypoint.platform.client_secret
+```
+
+Estos valores deben cargarse como properties del runtime y protegerse en Runtime Manager cuando corresponda.
+
 Los archivos locales o sensibles no se versionan, por ejemplo:
 
 - `local.properties`
