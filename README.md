@@ -81,6 +81,10 @@ anypoint.platform.client_secret
 
 Estos valores deben cargarse como properties del runtime y protegerse en Runtime Manager cuando corresponda.
 
+Sobre la API Instance se pueden aplicar politicas desde API Manager. Actualmente el proyecto se usa para practicar Client ID Enforcement, que permite exigir credenciales de aplicacion cliente antes de consumir la API.
+
+Cuando esta politica esta activa, las llamadas deben enviar las credenciales de cliente aprobadas por API Manager, por ejemplo mediante Basic Auth o headers equivalentes segun la configuracion de la policy.
+
 Los archivos locales o sensibles no se versionan, por ejemplo:
 
 - `local.properties`
